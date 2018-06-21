@@ -13,8 +13,17 @@ function displayImages(){
   //TODO: Generate 3 random numbers
   
   var randImg1 = getRandomImage();
+
+  // Set once, then re-set until it's not a match
   var randImg2 = getRandomImage();
-  var randImg3 = getRandomImage();
+  while (randImg2 === randImg1) {
+    randImg2 = getRandomImage();
+  }
+
+  // Keep setting randImg3 until it's not a match
+  do {
+    var randImg3 = getRandomImage();
+  } while (randImg3 === randImg1 || randImg3 === randImg2);
 
   // Set image sources
   imageOne.src = randImg1.src;
