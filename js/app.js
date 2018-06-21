@@ -2,6 +2,7 @@
 
 function getRandomImage() {
   var nextIndex = Math.floor(Math.random() * ImageChoice.all.length);
+  //TODO: Verify that no two numbers are the same
   return ImageChoice.all[nextIndex];
 }
 
@@ -15,18 +16,43 @@ function displayImages(){
   var randImg2 = getRandomImage();
   var randImg3 = getRandomImage();
 
-  //TODO: Verify that no two numbers are the same
+  // Set image sources
   imageOne.src = randImg1.src;
   imageTwo.src = randImg2.src;
   imageThree.src = randImg3.src;
-  
-  //TODO: Add one to the timesViewed
 
+  // Save current image on the <img> object
+  imageOne.currentImage = randImg1;
+  imageTwo.currentImage = randImg2;
+  imageThree.currentImage = randImg3;
+
+  // Track that image has been viewed
+  randImg1.timesViewed += 1;
+  randImg2.timesViewed += 1;
+  randImg3.timesViewed += 1;
+
+  console.log(ImageChoice.all);
 }
 
-// images.addEventListener('click', function (event) {
-//   console.log('click');
-// }); //for each image we have, wire the click handler
+var clickContainer = document.getElementById('click-container');
+clickContainer.addEventListener('click', function (event) {
+  // Ignore clicks that aren't on an <img>
+  if (event.target.tagName !== 'IMG') {
+    return;
+  }
+
+  // Find current ImageChoice object from the <img> that was clicked
+  var currentImage = event.target.currentImage;
+
+  // Record the click on that ImageChoice
+  currentImage.timesClicked++;
+
+  // Log to ensure the click was tracked
+  console.log('click', currentImage);
+
+  // Voting done, get more images
+  displayImages();
+});
 
 
 function ImageChoice (name, src){
