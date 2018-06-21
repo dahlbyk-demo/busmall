@@ -14,22 +14,26 @@ function displayImages(){
   do {
     var randImg1 = getRandomImage();
   } while (lastViewed.includes(randImg1));
+  lastViewed.push(randImg1);
 
   // Set once, then re-set until it's not a match
   var randImg2 = getRandomImage();
-  while (lastViewed.includes(randImg2) || randImg2 === randImg1) {
+  while (lastViewed.includes(randImg2)) {
     randImg2 = getRandomImage();
   }
+  lastViewed.push(randImg2);
 
   // Keep setting randImg3 until it's not a match
   do {
     var randImg3 = getRandomImage();
-  } while (lastViewed.includes(randImg3) || randImg3 === randImg1 || randImg3 === randImg2);
-
-  lastViewed = [];
-  lastViewed.push(randImg1);
-  lastViewed.push(randImg2);
+  } while (lastViewed.includes(randImg3));
   lastViewed.push(randImg3);
+
+  // Trim off the older last-viewed images, if necessary
+  if (lastViewed.length > 3) {
+    // Remove first 3 images from start (0) of array
+    lastViewed.splice(0, 3);
+  }
 
   // Set image sources
   imageOne.src = randImg1.src;
