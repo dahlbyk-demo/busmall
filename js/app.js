@@ -1,5 +1,8 @@
 'use strict';
 
+var maxVotes = 5;
+var voteCount = 0;
+
 var lastViewed = [];
 function getRandomImage() {
   var nextIndex = Math.floor(Math.random() * ImageChoice.all.length);
@@ -57,6 +60,14 @@ var clickContainer = document.getElementById('click-container');
 clickContainer.addEventListener('click', function (event) {
   // Ignore clicks that aren't on an <img>
   if (event.target.tagName !== 'IMG') {
+    return;
+  }
+
+  voteCount++;
+  console.log('click number ' + voteCount);
+
+  if (voteCount > maxVotes) {
+    showResults();
     return;
   }
 
@@ -160,3 +171,8 @@ initialize();
 // }
 
 //now to add the data
+
+function showResults() {
+  console.log('show results now!');
+  // TODO: show results!
+}
