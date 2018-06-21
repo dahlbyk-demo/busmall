@@ -1,8 +1,8 @@
 'use strict';
 
+var lastViewed = [];
 function getRandomImage() {
   var nextIndex = Math.floor(Math.random() * ImageChoice.all.length);
-  //TODO: Verify that no two numbers are the same
   return ImageChoice.all[nextIndex];
 }
 
@@ -10,20 +10,26 @@ function displayImages(){
   var imageOne = document.getElementById('imageOne');
   var imageTwo = document.getElementById('imageTwo');
   var imageThree = document.getElementById('imageThree');
-  //TODO: Generate 3 random numbers
   
-  var randImg1 = getRandomImage();
+  do {
+    var randImg1 = getRandomImage();
+  } while (lastViewed.includes(randImg1));
 
   // Set once, then re-set until it's not a match
   var randImg2 = getRandomImage();
-  while (randImg2 === randImg1) {
+  while (lastViewed.includes(randImg2) || randImg2 === randImg1) {
     randImg2 = getRandomImage();
   }
 
   // Keep setting randImg3 until it's not a match
   do {
     var randImg3 = getRandomImage();
-  } while (randImg3 === randImg1 || randImg3 === randImg2);
+  } while (lastViewed.includes(randImg3) || randImg3 === randImg1 || randImg3 === randImg2);
+
+  lastViewed = [];
+  lastViewed.push(randImg1);
+  lastViewed.push(randImg2);
+  lastViewed.push(randImg3);
 
   // Set image sources
   imageOne.src = randImg1.src;
