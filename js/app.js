@@ -1,19 +1,24 @@
 'use strict';
 
+function getRandomImage() {
+  var nextIndex = Math.floor(Math.random() * ImageChoice.all.length);
+  return ImageChoice.all[nextIndex];
+}
+
 function displayImages(){
   var imageOne = document.getElementById('imageOne');
   var imageTwo = document.getElementById('imageTwo');
   var imageThree = document.getElementById('imageThree');
   //TODO: Generate 3 random numbers
   
-  var randNum1 = 2;
-  var randNum2 = 10;
-  var randNum3 = 7;
+  var randImg1 = getRandomImage();
+  var randImg2 = getRandomImage();
+  var randImg3 = getRandomImage();
 
   //TODO: Verify that no two numbers are the same
-  imageOne.src = ImageChoice.all[randNum1].src;
-  imageTwo.src = ImageChoice.all[randNum2].src;
-  imageThree.src = ImageChoice.all[randNum3].src;
+  imageOne.src = randImg1.src;
+  imageTwo.src = randImg2.src;
+  imageThree.src = randImg3.src;
   
   //TODO: Add one to the timesViewed
 
